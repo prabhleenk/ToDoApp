@@ -11,10 +11,12 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
+
 <!doctype html>
+
 <html lang="en">
 <head>
-    <!-- Required meta tags -->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -24,6 +26,8 @@
     <title>My ToDo App</title>
 </head>
 <body>
+
+<b><c:out value="${msg}"></c:out></b>
 <div class="container mt-3">
     <h1 class="text-center"> Welcome to ToDo - Manager</h1>
     <c:if test="${not empty msg}">
@@ -31,14 +35,15 @@
             <b><c:out value="${msg}"></c:out></b>
         </div>
     </c:if>
+
     <div class="row mt-5">
         <div class="col-md-2">
             <div class="list-group">
                 <button type="button" class="list-group-item list-group-item-action active" aria-current="true">
                     MENU
                 </button>
-                <a href='<c:url value='/add'></c:url>' class="list-group-item list-group-item-action">Add TODO</a>
-                <a href='<c:url value='/home'></c:url>' class="list-group-item list-group-item-action">View TODO</a>
+                <a href='<c:url value="/add/${id}"></c:url>' class="list-group-item list-group-item-action" >Add TODO</a>
+                <a href='<c:url value="/home/${id}"></c:url>' class="list-group-item list-group-item-action">View TODO</a>
             </div>
         </div>
         <div class="col-md-10">
@@ -48,11 +53,8 @@
 <div class="card">
     <div class="card-body">
         <h3>
-            <c:out value="${t.todoTitle}"></c:out>
+            <c:out value="${t}"></c:out>
         </h3>
-        <p>
-            <c:out value="${t.todoContent}"></c:out>
-        </p>
     </div>
 </div>
                 </c:forEach>
@@ -60,7 +62,7 @@
             <c:if test="${page =='add'}">
                   <h1>add todos</h1>
 
-                   <form:form action="saveTodo" method="post" modelAttribute="todo">
+                   <form:form action="/saveTodo/${id}" method="post" modelAttribute="todo">
                        <div class="form-group">
                            <form:input path="todoTitle" cssClass="form-control" placeholder="Enter your todo title"/>
                        </div>
